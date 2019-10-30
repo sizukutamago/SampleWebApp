@@ -2,6 +2,7 @@ package com.sample.websample1;
 
 import com.sample.MyBean;
 import com.sample.MyBean2;
+import com.sample.MyBeanEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,6 +20,9 @@ public class MySampleServlet extends HttpServlet {
     @Autowired
     private MyBean2 myBean2;
 
+    @Autowired
+    private MyBeanEventService beanService;
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -34,7 +38,7 @@ public class MySampleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String message = req.getParameter("message");
-        myBean2.getBean().addMessage(message);
+        beanService.doService(message);
         resp.sendRedirect("/sample");
     }
 }

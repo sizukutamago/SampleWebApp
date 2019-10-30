@@ -20,4 +20,9 @@ public class MyBeanConfig2 {
     public MySampleApplicationListener applicationListener() {
         return new MySampleApplicationListener();
     }
+
+    @Bean
+    public MyBeanEventService myBeanEventService() {
+        return new MyBeanEventService();
+    }
 }
