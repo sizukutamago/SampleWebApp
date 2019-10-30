@@ -7,7 +7,7 @@ import java.util.List;
 
 @Component
 public class MyBean {
-    private List<String> messages = new ArrayList<String>();
+    private List<String> messages = new ArrayList<>();
 
     public MyBean() {
         super();

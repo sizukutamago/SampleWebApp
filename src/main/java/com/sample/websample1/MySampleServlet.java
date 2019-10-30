@@ -1,6 +1,7 @@
 package com.sample.websample1;
 
 import com.sample.MyBean;
+import com.sample.MyBean2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,7 +17,7 @@ import java.io.IOException;
 @WebServlet("/sample")
 public class MySampleServlet extends HttpServlet {
     @Autowired
-    MyBean myBean1;
+    private MyBean2 myBean2;
 
     @Override
     public void init() throws ServletException {
@@ -26,15 +27,14 @@ public class MySampleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("mybean", myBean1);
+        req.setAttribute("mybean", myBean2);
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String message = req.getParameter("message");
-        myBean1.addMessage(message);
-        req.setAttribute("mybean", myBean1);
+        myBean2.getBean().addMessage(message);
         resp.sendRedirect("/sample");
     }
 }
