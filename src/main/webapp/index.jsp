@@ -11,7 +11,14 @@
 		<title>Welcome</title>
 	</head> 
 	<body>
-		<c:url value="/showMessage.html" var="messageUrl" />
-		<a href="${messageUrl}">Click to enter</a>
+		<h1>Sample page</h1>
+		<pre>${mybean}</pre>
+
+		<hr>
+
+		<form action="/sample" method="post">
+			<input type="text" id="message" name="message">
+			<input type="submit" value="add">
+		</form>
 	</body>
 </html>
