@@ -1,8 +1,10 @@
 package com.sample.websample1;
 
 import com.sample.MyBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,17 +15,17 @@ import java.io.IOException;
 
 @WebServlet("/sample")
 public class MySampleServlet extends HttpServlet {
-    ApplicationContext app;
+    @Autowired
+    MyBean myBean1;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        app = new ClassPathXmlApplicationContext("/spring/application-config.xml");
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MyBean myBean1 = (MyBean) app.getBean("mybean1");
         req.setAttribute("mybean", myBean1);
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
@@ -31,7 +33,6 @@ public class MySampleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String message = req.getParameter("message");
-        MyBean myBean1 = (MyBean) app.getBean("mybean1");
         myBean1.addMessage(message);
         req.setAttribute("mybean", myBean1);
         resp.sendRedirect("/sample");
